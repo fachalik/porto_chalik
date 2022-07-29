@@ -26,6 +26,9 @@ body {
   padding: 0;
   margin: 0;
   font-family: Sora;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 a {

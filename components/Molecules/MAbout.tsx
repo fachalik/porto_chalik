@@ -60,15 +60,17 @@ const MAbout = () => {
     <Container
       sx={{
         maxHeight: "100%",
-        paddingY: 20,
+        paddingY: { xs: 10, md: 15 },
       }}
+      id={"about"}
     >
       <Stack spacing={5} direction={"column"}>
         <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
           About Me
         </Typography>
         <Typography
-          fontSize={18}
+          px={{ xs: 2 }}
+          fontSize={{ xs: 14, md: 18 }}
           fontWeight={"regular"}
           textAlign="justify"
           flexWrap="wrap"
@@ -86,7 +88,7 @@ const MAbout = () => {
           My Journey
         </Typography>
         <Stack
-          direction={"row"}
+          direction={{ xs: "column", sm: "row" }}
           spacing={2}
           alignItems={"center"}
           justifyContent={"center"}
@@ -103,18 +105,6 @@ const MAbout = () => {
               <ItemWorkAt item={item} />
             </div>
           ))}
-          {/* <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
-            My Journey
-          </Typography>
-          <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
-            My Journey
-          </Typography>
-          <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
-            My Journey
-          </Typography>
-          <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
-            My Journey
-          </Typography> */}
         </Stack>
       </Stack>
     </Container>

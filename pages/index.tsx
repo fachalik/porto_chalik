@@ -13,6 +13,9 @@ import { Container, Box } from "@mui/material";
 import MHeader from "../components/Molecules/MHeader";
 import MThumbnail from "../components/Molecules/MThumbnail";
 import MAbout from "../components/Molecules/MAbout";
+import MSeparateHire from "../components/Molecules/MSeparateHire";
+import MLatestWork from "../components/Molecules/MLatestWork";
+import MFooter from "../components/Molecules/MFooter";
 
 const Home: NextPage = () => {
   return (
@@ -39,6 +42,9 @@ const Home: NextPage = () => {
         <MHeader />
         <MThumbnail />
         <MAbout />
+        <MSeparateHire />
+        <MLatestWork />
+        <MFooter />
       </Box>
     </Container>
   );

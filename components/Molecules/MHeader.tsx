@@ -3,6 +3,8 @@
 import type { NextPage } from "next";
 import { Button, Container, Toolbar, Box, AppBar } from "@mui/material";
 
+import Link from "next/link";
+
 import ALogo from "../Atoms/ALogo";
 
 const MHeader = (props: any) => {
@@ -15,20 +17,31 @@ const MHeader = (props: any) => {
         style={{ background: "#ffffff" }}
         elevation={0}
       >
-        <Toolbar>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: { xs: "center", sm: "space-between" },
+          }}
+        >
           <ALogo />
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
-              <Button
+              <Link
+                scroll={false}
+                href={`/#${item.toLowerCase()}`}
+                passHref
                 key={item}
-                sx={{
-                  color: "black",
-                  textTransform: "capitalize",
-                  fontWeight: "bold",
-                }}
               >
-                {item}
-              </Button>
+                <Button
+                  sx={{
+                    color: "black",
+                    textTransform: "capitalize",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item}
+                </Button>
+              </Link>
             ))}
           </Box>
         </Toolbar>

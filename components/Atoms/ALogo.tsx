@@ -18,7 +18,7 @@ const ALogo = (props: any) => {
   }, [angle]);
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box>
       <Box
         sx={{
           width: 45,

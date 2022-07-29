@@ -3,6 +3,7 @@
 import type { NextPage } from "next";
 import Image from "next/image";
 import { Stack, Container, Typography, Box } from "@mui/material";
+import Typewriter from "typewriter-effect";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -15,31 +16,69 @@ const MThumbnail = (props: any) => {
     <Container
       maxWidth="xl"
       sx={{
-        maxHeight: "100%",
         backgroundColor: "secondary.main",
-        paddingY: 20,
       }}
       onMouseMove={handleMouseMove}
+      id={"home"}
     >
       <Container
-        sx={{ maxHeight: "50vh", maxWidth: "100vw", cursor: "default" }}
+        sx={{
+          maxHeight: { xs: "100vh", md: "100vh" },
+          marginY: { xs: 10, md: 21 },
+          maxWidth: "100vw",
+          cursor: "default",
+        }}
       >
         <Stack
-          direction={{ xs: "column-reverse", sm: "row" }}
-          spacing={{ xs: 1, sm: 2, md: 4 }}
+          direction={{ xs: "column-reverse", md: "row" }}
+          justifyContent={"center"}
+          spacing={{ xs: 1, sm: 2, md: 0 }}
         >
-          <Stack spacing={"21px"}>
-            <Typography fontSize={56} fontWeight={"bold"} flexWrap={"wrap"}>
-              {`Hola! I’m FA Chalik,\n I implemented\n Design to Code`}
+          <Stack
+            spacing={"21px"}
+            width={{ md: "50vw" }}
+            justifyContent={"center"}
+          >
+            <Typography
+              height={{ xs: 50, md: 240 }}
+              fontSize={{ xs: 22, sm: 50 }}
+              fontWeight={"bold"}
+              flexWrap={"wrap"}
+              textAlign={{ xs: "center", sm: "start" }}
+            >
+              <Typewriter
+                options={{
+                  strings: [
+                    "Hola! I’m FA Chalik, I will translate design to code.",
+                  ],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
             </Typography>
-            <Typography fontSize={16} fontWeight={"regular"} flexWrap={"wrap"}>
+
+            <Typography
+              fontSize={{ xs: 14, sm: 16 }}
+              fontWeight={"regular"}
+              flexWrap={"wrap"}
+              textAlign={{ xs: "center", sm: "start" }}
+            >
               Let’s Collaborate on your next project.
             </Typography>
-            <Stack direction={"row"} spacing={2}>
-              <AButton variant={"contained"}>Hire Me</AButton>
-              <AButton variant={"outlined"}>Download CV</AButton>
+            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+              <AButton href={"/#contact"} variant={"contained"}>
+                Hire Me
+              </AButton>
+              <AButton href="/" variant={"outlined"}>
+                Download CV
+              </AButton>
             </Stack>
-            <Stack direction={"row"} spacing={2}>
+            <Stack
+              direction={"row"}
+              justifyContent={{ xs: "center", sm: "start" }}
+              alignItems={"center"}
+              spacing={2}
+            >
               <LinkedInIcon />
               <InstagramIcon />
               <GitHubIcon />
@@ -48,7 +87,9 @@ const MThumbnail = (props: any) => {
           <Box
             component="img"
             sx={{
-              width: 580,
+              width: { xs: 350, sm: 600 },
+              // height: "auto",
+              backgroundSize: "cover",
             }}
             alt="The house from the offer."
             src={`/Images/thumbnail-pic.png`}
