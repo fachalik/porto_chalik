@@ -6,7 +6,7 @@ import Link from "next/link";
 interface IProps {
   children: any;
   variant?: any;
-  href: string;
+  href?: string;
 }
 const AButton: FC<IProps> = (props) => {
   const { children, variant, href } = props;
