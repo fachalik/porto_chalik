@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useInterval } from "@chakra-ui/react";
 
 const ALogo = (props: any) => {
   const [angle, setAngle] = useState<number>(0);
