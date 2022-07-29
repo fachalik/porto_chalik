@@ -49,7 +49,7 @@ const MThumbnail = (props: any) => {
               <Typewriter
                 options={{
                   strings: [
-                    "Hola! I’m FA Chalik, I will translate design to code.",
+                    "Hola! I'm FA Chalik, I will translate your design into code.",
                   ],
                   autoStart: true,
                   loop: true,
