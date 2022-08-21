@@ -9,6 +9,9 @@ import {
   Box,
   Grid,
   TextField,
+  Link,
+  Tooltip,
+  IconButton,
 } from "@mui/material";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -17,6 +20,15 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import AButton from "../Atoms/AButton";
 
 const MFooter = () => {
+  const ItemIcon = ({ href, children, tooltipData }: any) => {
+    return (
+      <Link href={href} underline="none" target={"_blank"}>
+        <Tooltip title={tooltipData}>
+          <IconButton>{children}</IconButton>
+        </Tooltip>
+      </Link>
+    );
+  };
   return (
     <Container
       maxWidth="xl"
@@ -65,9 +77,24 @@ const MFooter = () => {
               alignItems={"center"}
               spacing={2}
             >
-              <LinkedInIcon />
-              <InstagramIcon />
-              <GitHubIcon />
+              <ItemIcon
+                href={process.env.NEXT_PUBLIC_LINKEDIN_URL}
+                tooltipData={"fachalik"}
+              >
+                <LinkedInIcon />
+              </ItemIcon>
+              <ItemIcon
+                href={process.env.NEXT_PUBLIC_INSTAGRAM_URL}
+                tooltipData={"fachalik"}
+              >
+                <InstagramIcon />
+              </ItemIcon>
+              <ItemIcon
+                href={process.env.NEXT_PUBLIC_GITHUB_URL}
+                tooltipData={"fachalik"}
+              >
+                <GitHubIcon />
+              </ItemIcon>
             </Stack>
           </Stack>
           <Stack

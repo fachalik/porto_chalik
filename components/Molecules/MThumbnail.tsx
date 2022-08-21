@@ -2,9 +2,17 @@
 
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Stack, Container, Typography, Box } from "@mui/material";
+import {
+  Stack,
+  Container,
+  Typography,
+  Box,
+  Tooltip,
+  Link,
+} from "@mui/material";
 import Typewriter from "typewriter-effect";
 import InstagramIcon from "@mui/icons-material/Instagram";
+import IconButton from "@mui/material/IconButton";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 // ** component
@@ -12,6 +20,15 @@ import AButton from "../Atoms/AButton";
 
 const MThumbnail = (props: any) => {
   const { handleMouseMove } = props;
+  const ItemIcon = ({ href, children, tooltipData }: any) => {
+    return (
+      <Link href={href} underline="none" target={"_blank"}>
+        <Tooltip title={tooltipData}>
+          <IconButton>{children}</IconButton>
+        </Tooltip>
+      </Link>
+    );
+  };
   return (
     <Container
       maxWidth="xl"
@@ -39,8 +56,8 @@ const MThumbnail = (props: any) => {
             width={{ md: "50vw" }}
             justifyContent={"center"}
           >
-            <Typography
-              height={{ xs: 50, md: 240 }}
+            <Box
+              height={{ xs: 100, md: 240 }}
               fontSize={{ xs: 22, sm: 50 }}
               fontWeight={"bold"}
               flexWrap={"wrap"}
@@ -55,7 +72,7 @@ const MThumbnail = (props: any) => {
                   loop: true,
                 }}
               />
-            </Typography>
+            </Box>
 
             <Typography
               fontSize={{ xs: 14, sm: 16 }}
@@ -69,7 +86,10 @@ const MThumbnail = (props: any) => {
               <AButton href={"/#contact"} variant={"contained"}>
                 Hire Me
               </AButton>
-              <AButton href="/" variant={"outlined"}>
+              <AButton
+                href={process.env.NEXT_PUBLIC_CV_URL}
+                variant={"outlined"}
+              >
                 Download CV
               </AButton>
             </Stack>
@@ -79,9 +99,24 @@ const MThumbnail = (props: any) => {
               alignItems={"center"}
               spacing={2}
             >
-              <LinkedInIcon />
-              <InstagramIcon />
-              <GitHubIcon />
+              <ItemIcon
+                href={process.env.NEXT_PUBLIC_LINKEDIN_URL}
+                tooltipData={"fachalik"}
+              >
+                <LinkedInIcon />
+              </ItemIcon>
+              <ItemIcon
+                href={process.env.NEXT_PUBLIC_INSTAGRAM_URL}
+                tooltipData={"fachalik"}
+              >
+                <InstagramIcon />
+              </ItemIcon>
+              <ItemIcon
+                href={process.env.NEXT_PUBLIC_GITHUB_URL}
+                tooltipData={"fachalik"}
+              >
+                <GitHubIcon />
+              </ItemIcon>
             </Stack>
           </Stack>
           <Box
