@@ -2,29 +2,41 @@
 
 import type { NextPage } from "next";
 import Image from "next/image";
-import { Stack, Container, Typography, Box, Paper } from "@mui/material";
+import {
+  Stack,
+  Container,
+  Typography,
+  Box,
+  Paper,
+  CircularProgress,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { timeout } from "../../utility/utilitys";
 
 const MAbout = () => {
-  const data: any = [
-    {
-      image: "/Images/puti.png",
-      companyName: "PUTI Telkom University",
-      role: "Frontend Web Developer",
-      time: "March 2022 - Now",
-    },
-    {
-      image: "/Images/upanastudio.png",
-      companyName: "Upana Studio",
-      role: "Frontend Web Developer Freelance",
-      time: "Feb 2022 - Now",
-    },
-    {
-      image: "/Images/amoeba.png",
-      companyName: "Amoeba Telkom",
-      role: "Frontend Web Developer Intern",
-      time: "Sept 2021 - Feb 2022",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const fetchingMyJourney = async () => {
+      await setIsLoading(true);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}journeys`)
+        .then(async (response) => {
+          await timeout(1000);
+          await setData(response.data.data);
+          await setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsError(true);
+          setErrorMessage(err.message);
+        });
+    };
+    fetchingMyJourney();
+  }, []);
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -44,18 +56,19 @@ const MAbout = () => {
           sx={{
             height: 80,
           }}
-          alt={item.companyName}
+          alt={item.cloudinary_id}
           src={item.image}
         />
         <div>
-          <h4 style={{ textAlign: "center", margin: 0 }}>{item.role}</h4>
+          <h4 style={{ textAlign: "center", margin: 0 }}>{item.jobRole}</h4>
           <h6 style={{ textAlign: "center", margin: 0 }}>{item.companyName}</h6>
-          <h6 style={{ textAlign: "center", margin: 0 }}>{item.time}</h6>
+          <h6 style={{ textAlign: "center", margin: 0 }}>{item.Date}</h6>
         </div>
       </Paper>
     );
   };
 
+  console.log(data);
   return (
     <Container
       sx={{
@@ -84,28 +97,42 @@ const MAbout = () => {
           Telkom University and Freelance at Upana Studio as a frontend
           developer.
         </Typography>
-        <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
-          My Journey
-        </Typography>
-        <Stack
-          direction={{ xs: "column", sm: "row" }}
-          spacing={2}
-          alignItems={"center"}
-          justifyContent={"center"}
-        >
-          {data.map((item: any, idx: number) => (
-            <div
-              key={idx}
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+        {isLoading && (
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <CircularProgress />
+          </Stack>
+        )}
+        {!isLoading && (
+          <>
+            <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
+              My Journey
+            </Typography>
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
+              alignItems={"center"}
+              justifyContent={"center"}
             >
-              <ItemWorkAt item={item} />
-            </div>
-          ))}
-        </Stack>
+              {data.map((item: any, idx: number) => (
+                <div
+                  key={idx}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <ItemWorkAt item={item} />
+                </div>
+              ))}
+            </Stack>
+          </>
+        )}
       </Stack>
     </Container>
   );

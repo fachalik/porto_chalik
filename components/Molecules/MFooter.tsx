@@ -1,6 +1,7 @@
 /** @format */
 
 import { Fragment } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Stack,
@@ -13,13 +14,41 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import axios from "axios";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AButton from "../Atoms/AButton";
 
+const schema = yup
+  .object({
+    name: yup.string().required("name is required"),
+    email: yup.string().email("email wrong").required("mail is required"),
+    message: yup.string().required("message required"),
+  })
+  .required();
+interface IFormInputs {
+  name: string;
+  email: string;
+  message: string;
+}
+
 const MFooter = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSend, setIsSend] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInputs>({ resolver: yupResolver(schema) });
+
   const ItemIcon = ({ href, children, tooltipData }: any) => {
     return (
       <Link href={href} underline="none" target={"_blank"}>
@@ -29,6 +58,23 @@ const MFooter = () => {
       </Link>
     );
   };
+
+  const onSubmit = async (data: IFormInputs) => {
+    await setIsLoading(true);
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}get-in-touch`, data)
+      .then((response) => {
+        console.log(response);
+        setIsSend(true);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setIsError(true);
+        setIsLoading(false);
+      });
+  };
+
   return (
     <Container
       maxWidth="xl"
@@ -97,24 +143,103 @@ const MFooter = () => {
               </ItemIcon>
             </Stack>
           </Stack>
-          <Stack
-            direction={"column"}
-            marginTop={{ xs: 2 }}
-            spacing={3}
-            width={{ md: "50vw" }}
-          >
-            <TextField id="outlined-basic" label="Name" variant="outlined" />
-            <TextField id="outlined-basic" label="Email" variant="outlined" />
-            <TextField
-              id="outlined-multiline-static"
-              label="Tell me something"
-              multiline
-              rows={4}
-            />
-            <Box sx={{ display: "flex", justifyContent: "end" }}>
-              <AButton variant={"contained"}>Just send</AButton>
+          {!isSend && !isError && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack
+                direction={"column"}
+                marginTop={{ xs: 2 }}
+                spacing={3}
+                width={{ md: "50vw" }}
+              >
+                <Controller
+                  name="name"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      id="outlined-basic"
+                      label="Name"
+                      variant="outlined"
+                      {...field}
+                      error={errors.name?.message !== undefined}
+                    />
+                  )}
+                />
+                <p style={{ color: "red", margin: 0 }}>
+                  {errors.name?.message}
+                </p>
+                <Controller
+                  name="email"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      id="outlined-basic"
+                      label="Email"
+                      variant="outlined"
+                      {...field}
+                      error={errors.email?.message !== undefined}
+                    />
+                  )}
+                />
+                <p style={{ color: "red", margin: 0 }}>
+                  {errors.email?.message}
+                </p>
+                <Controller
+                  name="message"
+                  control={control}
+                  render={({ field }) => (
+                    <TextField
+                      id="outlined-multiline-static"
+                      label="Tell me something"
+                      multiline
+                      rows={4}
+                      {...field}
+                      error={errors.message?.message !== undefined}
+                    />
+                  )}
+                />
+                <p style={{ color: "red", margin: 0 }}>
+                  {errors.message?.message}
+                </p>
+                <Box sx={{ display: "flex", justifyContent: "end" }}>
+                  <AButton type={"submit"} variant={"contained"}>
+                    Just send
+                  </AButton>
+                </Box>
+              </Stack>
+            </form>
+          )}
+          {isSend && (
+            <Box
+              mt={{ xs: 3, md: 0 }}
+              width={{ md: "50vw" }}
+              sx={{
+                borderRadius: 1,
+                backgroundColor: "white",
+                paddingY: { xs: 5, md: 8 },
+              }}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              Thank you 🫶
             </Box>
-          </Stack>
+          )}
+          {isError && (
+            <Box
+              mt={{ xs: 3, md: 0 }}
+              width={{ md: "50vw" }}
+              sx={{
+                borderRadius: 1,
+                backgroundColor: "white",
+                paddingY: { xs: 5, md: 8 },
+              }}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+            >
+              Something error in services 🫣
+            </Box>
+          )}
         </Stack>
       </Container>
     </Container>
