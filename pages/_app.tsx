@@ -8,6 +8,7 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 import createEmotionCache from "../utility/createEmotionCache";
 import lightTheme from "../styles/theme/lightTheme";
 import "../styles/globals.css";
+import MBottomNavigation from "../components/Molecules/MBottomNavigation";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -19,6 +20,7 @@ const MyApp = (props: any) => {
       <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Component {...pageProps} />
+        <MBottomNavigation />
       </ThemeProvider>
     </CacheProvider>
   );

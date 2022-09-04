@@ -43,10 +43,10 @@ const MTechStack = () => {
 
   const ItemWorkAt = ({ item }: any) => {
     return (
-      <Grid item>
+      <Grid xs={6} md={2} item justifyContent={"center"} alignItems={"center"}>
         <Link href={item.website} underline="none" target={"_blank"}>
           <Tooltip title={item.website}>
-            <Stack>
+            <Stack justifyContent={"center"} alignItems={"center"}>
               <Box
                 sx={{
                   backgroundColor: "#F3F3F3",
@@ -99,10 +99,11 @@ const MTechStack = () => {
         {!isError && !isLoading && data.length ? (
           <Grid
             container
-            spacing={2.5}
+            spacing={0}
             rowSpacing={2.5}
-            direction={{ xs: "column", md: "row" }}
+            alignItems="center"
             justifyContent="center"
+            // style={{ minHeight: "100vh" }}
           >
             {data.map((item: any, idx: number) => (
               <ItemWorkAt item={item} key={idx} />

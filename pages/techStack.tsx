@@ -13,6 +13,7 @@ import { Container, Box } from "@mui/material";
 import MHeader from "../components/Molecules/MHeader";
 import MFooter from "../components/Molecules/MFooter";
 import MTechStack from "../components/Molecules/MTechStack";
+import MBottomNavigation from "../components/Molecules/MBottomNavigation";
 
 const techStack: NextPage = () => {
   return (
@@ -39,6 +40,7 @@ const techStack: NextPage = () => {
         <MHeader />
         <MTechStack />
         <MFooter />
+        {/* <MBottomNavigation /> */}
       </Box>
     </Container>
   );

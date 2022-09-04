@@ -16,6 +16,7 @@ import MAbout from "../components/Molecules/MAbout";
 import MSeparateHire from "../components/Molecules/MSeparateHire";
 import MLatestWork from "../components/Molecules/MLatestWork";
 import MFooter from "../components/Molecules/MFooter";
+import MBottomNavigation from "../components/Molecules/MBottomNavigation";
 
 const Home: NextPage = () => {
   return (
@@ -45,6 +46,7 @@ const Home: NextPage = () => {
         <MSeparateHire />
         <MLatestWork />
         <MFooter />
+        {/* <MBottomNavigation /> */}
       </Box>
     </Container>
   );
