@@ -8,7 +8,29 @@ import Link from "next/link";
 import ALogo from "../Atoms/ALogo";
 
 const MHeader = (props: any) => {
-  const navItems = ["Home", "About", "Works", "Tech Stack", "Contact"];
+  // const navItems = ["Home", "About", "Works", "Tech Stack", "Contact"];
+  const navItems = [
+    {
+      title: "Home",
+      link: "/#home",
+    },
+    {
+      title: "About",
+      link: "/#about",
+    },
+    {
+      title: "Works",
+      link: "/#works",
+    },
+    {
+      title: "Tech Stack",
+      link: "/techStack",
+    },
+    {
+      title: "Contact",
+      link: "/#contact",
+    },
+  ];
   return (
     <Container sx={{ maxHeight: "50vh", maxWidth: "100vw" }}>
       <AppBar
@@ -25,13 +47,8 @@ const MHeader = (props: any) => {
         >
           <ALogo />
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Link
-                scroll={false}
-                href={`/#${item.toLowerCase()}`}
-                passHref
-                key={item}
-              >
+            {navItems.map((item, idx) => (
+              <Link scroll={false} href={`${item.link}`} passHref key={idx}>
                 <Button
                   sx={{
                     color: "black",
@@ -39,7 +56,7 @@ const MHeader = (props: any) => {
                     fontWeight: "bold",
                   }}
                 >
-                  {item}
+                  {item.title}
                 </Button>
               </Link>
             ))}
