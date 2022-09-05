@@ -13,7 +13,6 @@ import { Container, Box } from "@mui/material";
 import MHeader from "../components/Molecules/MHeader";
 import MFooter from "../components/Molecules/MFooter";
 import MTechStack from "../components/Molecules/MTechStack";
-import MBottomNavigation from "../components/Molecules/MBottomNavigation";
 
 const techStack: NextPage = () => {
   return (
@@ -26,7 +25,7 @@ const techStack: NextPage = () => {
       }}
     >
       <Head>
-        <title>FC - Portofolio</title>
+        <title>FC - Tech stack</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Box
@@ -40,7 +39,6 @@ const techStack: NextPage = () => {
         <MHeader />
         <MTechStack />
         <MFooter />
-        {/* <MBottomNavigation /> */}
       </Box>
     </Container>
   );

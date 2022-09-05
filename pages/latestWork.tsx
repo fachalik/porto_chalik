@@ -11,14 +11,10 @@ import { Container, Box } from "@mui/material";
 
 // ** Component
 import MHeader from "../components/Molecules/MHeader";
-import MThumbnail from "../components/Molecules/MThumbnail";
-import MAbout from "../components/Molecules/MAbout";
-import MSeparateHire from "../components/Molecules/MSeparateHire";
-import MLatestWork from "../components/Molecules/MLatestWork";
 import MFooter from "../components/Molecules/MFooter";
-import MBottomNavigation from "../components/Molecules/MBottomNavigation";
+import MTechStack from "../components/Molecules/MTechStack";
 
-const Home: NextPage = () => {
+const latestWork: NextPage = () => {
   return (
     <Container
       disableGutters={true}
@@ -29,7 +25,7 @@ const Home: NextPage = () => {
       }}
     >
       <Head>
-        <title>FC - Portofolio</title>
+        <title>FC - Latest Work</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Box
@@ -41,14 +37,11 @@ const Home: NextPage = () => {
         }}
       >
         <MHeader />
-        <MThumbnail />
-        <MAbout />
-        <MSeparateHire />
-        <MLatestWork />
+        {/* <MTechStack /> */}
         <MFooter />
       </Box>
     </Container>
   );
 };
 
-export default Home;
+export default latestWork;

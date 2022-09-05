@@ -2,26 +2,42 @@
 
 import { Fragment } from "react";
 import Image from "next/image";
-import { Stack, Container, Typography, Box, Grid } from "@mui/material";
+import {
+  Stack,
+  Container,
+  Typography,
+  Box,
+  Grid,
+  CircularProgress,
+} from "@mui/material";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { timeout } from "../../utility/utilitys";
 
 const MLatestWork = () => {
-  const data: any = [
-    {
-      image: "/Images/puti.png",
-      name: "PUTI Telkom University",
-      type: "Frontend Web Developer",
-    },
-    {
-      image: "/Images/upanastudio.png",
-      name: "PUTI Telkom University",
-      type: "Frontend Web Developer",
-    },
-    {
-      image: "/Images/amoeba.png",
-      name: "PUTI Telkom University",
-      type: "Frontend Web Developer",
-    },
-  ];
+  const [data, setData] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const fetchingLatestWork = () => {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}latest-work/get3Data`)
+        .then(async (response) => {
+          await timeout(1000);
+          await setData(response.data.data);
+          await setIsLoading(false);
+        })
+        .catch((err) => {
+          console.error(err);
+          setIsError(true);
+          setIsLoading(false);
+        });
+    };
+
+    fetchingLatestWork();
+  }, []);
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -43,7 +59,7 @@ const MLatestWork = () => {
               sx={{
                 backgroundSize: "contain",
               }}
-              alt={item.name}
+              alt={item.title}
               src={item.image}
             />
           </Box>
@@ -53,7 +69,7 @@ const MLatestWork = () => {
             textAlign={{ xs: "center", md: "justify" }}
             flexWrap="wrap"
           >
-            {item.name}
+            {item.title}
           </Typography>
           <Typography
             fontSize={{ xs: 12, md: 16 }}
@@ -61,7 +77,7 @@ const MLatestWork = () => {
             textAlign={{ xs: "center", md: "justify" }}
             flexWrap="wrap"
           >
-            {item.type}
+            {item.title}
           </Typography>
         </Stack>
       </Grid>
@@ -80,7 +96,44 @@ const MLatestWork = () => {
         <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
           Latest work
         </Typography>
-        <Grid
+        {!isError && !isLoading && data.length ? (
+          <Grid
+            container
+            spacing={0}
+            rowSpacing={2.5}
+            alignItems="center"
+            justifyContent="center"
+            // style={{ minHeight: "100vh" }}
+          >
+            {data.map((item: any, idx: number) => (
+              <ItemWorkAt item={item} key={idx} />
+            ))}
+          </Grid>
+        ) : (
+          !isError &&
+          !isLoading && (
+            <Typography fontSize={24} textAlign="center">
+              No result found 🕵🏼‍♂️
+            </Typography>
+          )
+        )}
+        {isLoading && (
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <CircularProgress />
+          </Stack>
+        )}
+
+        {isError && (
+          <Typography fontSize={24} textAlign="center">
+            Something was wrong 🧑🏽‍🔧
+          </Typography>
+        )}
+        {/* <Grid
           container
           gridRow={3}
           rowSpacing={{ xs: 4 }}
@@ -93,7 +146,7 @@ const MLatestWork = () => {
           {data.map((item: any, idx: number) => (
             <ItemWorkAt item={item} key={idx} />
           ))}
-        </Grid>
+        </Grid> */}
       </Stack>
     </Container>
   );
