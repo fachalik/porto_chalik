@@ -123,7 +123,7 @@ const MAbout = () => {
             </Typography>
             <Stack
               direction={{ xs: "column", sm: "row" }}
-              spacing={{ xs: 0, md: 5 }}
+              spacing={{ xs: 3, md: 5 }}
               alignItems={"center"}
               justifyContent={"center"}
             >
