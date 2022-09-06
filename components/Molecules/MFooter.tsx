@@ -81,9 +81,9 @@ const MFooter = () => {
       sx={{
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
-        // maxHeight: "1000px",
         backgroundColor: "secondary.main",
-        paddingY: { xs: 5, md: 8 },
+        paddingTop: { xs: 5, md: 8 },
+        paddingBottom: { xs: 10, md: 8 },
       }}
       id={"contact"}
     >

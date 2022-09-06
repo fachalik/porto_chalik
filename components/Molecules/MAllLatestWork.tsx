@@ -16,7 +16,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { timeout } from "../../utility/utilitys";
 
-const MLatestWork = () => {
+const MAllLatestWork = () => {
   const [data, setData] = useState<any>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -25,7 +25,7 @@ const MLatestWork = () => {
     setIsLoading(true);
     const fetchingLatestWork = () => {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}latest-work/get3Data`)
+        .get(`${process.env.NEXT_PUBLIC_API_URL}latest-work`)
         .then(async (response) => {
           await timeout(1000);
           await setData(response.data.data);
@@ -97,32 +97,10 @@ const MLatestWork = () => {
       id={"works"}
     >
       <Stack spacing={10} direction={"column"} justifyContent={"center"}>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: { xs: "center", md: "end" },
-            justifyContent: { xs: "center", md: "start" },
-          }}
-        >
-          <Typography
-            fontSize={32}
-            fontWeight={"bold"}
-            textAlign={{ xs: "center", md: "start" }}
-          >
-            Latest work
-          </Typography>
-          <Link href={"/latestWork"}>
-            <Typography
-              fontSize={12}
-              textAlign="start"
-              mb={0.9}
-              ml={2}
-              sx={{ display: { xs: "none", md: "block" } }}
-            >
-              See more
-            </Typography>
-          </Link>
-        </Box>
+        <Typography fontSize={32} fontWeight={"bold"} textAlign={"center"}>
+          Latest work
+        </Typography>
+
         {!isError && !isLoading && data.length ? (
           <Grid
             container
@@ -164,4 +142,4 @@ const MLatestWork = () => {
   );
 };
 
-export default MLatestWork;
+export default MAllLatestWork;

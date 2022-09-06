@@ -90,7 +90,7 @@ const MTechStack = () => {
         maxHeight: "100%",
         paddingY: { xs: 10, md: 18 },
       }}
-      id={"works"}
+      id={"tech-stack"}
     >
       <Stack spacing={10} direction={"column"} justifyContent={"center"}>
         <Typography fontSize={32} textAlign="center">

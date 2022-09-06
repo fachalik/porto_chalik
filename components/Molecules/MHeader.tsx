@@ -23,7 +23,7 @@ const MHeader = (props: any) => {
       link: "/#works",
     },
     {
-      title: "Tech Stack",
+      title: "Tech stack",
       link: "/techStack",
     },
     {
@@ -52,7 +52,7 @@ const MHeader = (props: any) => {
                 <Button
                   sx={{
                     color: "black",
-                    textTransform: "capitalize",
+                    textTransform: "initial",
                     fontWeight: "bold",
                   }}
                 >

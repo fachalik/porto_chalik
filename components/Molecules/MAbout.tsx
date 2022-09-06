@@ -78,11 +78,15 @@ const MAbout = () => {
       id={"about"}
     >
       <Stack spacing={5} direction={"column"}>
-        <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
+        <Typography
+          fontSize={32}
+          fontWeight={"bold"}
+          textAlign="center"
+          px={{ xs: 0 }}
+        >
           About Me
         </Typography>
         <Typography
-          px={{ xs: 2 }}
           fontSize={{ xs: 14, md: 18 }}
           fontWeight={"regular"}
           textAlign="justify"
@@ -108,13 +112,18 @@ const MAbout = () => {
           </Stack>
         )}
         {!isLoading && (
-          <>
-            <Typography fontSize={32} fontWeight={"bold"} textAlign="center">
+          <Stack spacing={5} direction={"column"} py={{ xs: 0, md: 10 }}>
+            <Typography
+              fontSize={32}
+              fontWeight={"bold"}
+              textAlign="center"
+              px={{ xs: 0 }}
+            >
               My Journey
             </Typography>
             <Stack
               direction={{ xs: "column", sm: "row" }}
-              spacing={2}
+              spacing={{ xs: 0, md: 5 }}
               alignItems={"center"}
               justifyContent={"center"}
             >
@@ -131,7 +140,7 @@ const MAbout = () => {
                 </div>
               ))}
             </Stack>
-          </>
+          </Stack>
         )}
       </Stack>
     </Container>

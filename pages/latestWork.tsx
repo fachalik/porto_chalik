@@ -12,7 +12,7 @@ import { Container, Box } from "@mui/material";
 // ** Component
 import MHeader from "../components/Molecules/MHeader";
 import MFooter from "../components/Molecules/MFooter";
-import MTechStack from "../components/Molecules/MTechStack";
+import MAllLatestWork from "../components/Molecules/MAllLatestWork";
 
 const latestWork: NextPage = () => {
   return (
@@ -37,7 +37,7 @@ const latestWork: NextPage = () => {
         }}
       >
         <MHeader />
-        {/* <MTechStack /> */}
+        <MAllLatestWork />
         <MFooter />
       </Box>
     </Container>
