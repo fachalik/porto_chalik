@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Link from "next/link";
 
 const ALogo = (props: any) => {
   const [angle, setAngle] = useState<number>(0);
@@ -17,29 +18,31 @@ const ALogo = (props: any) => {
   }, [angle]);
 
   return (
-    <Box>
-      <Box
-        sx={{
-          width: 45,
-          height: 45,
-          backgroundColor: "black",
-          borderRadius: 99,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Typography
-          fontSize={"14px"}
-          fontWeight={"bold"}
-          component="div"
-          color="white"
-          sx={{ transform: `rotate(${angle}deg)` }}
+    <Link scroll={false} href={`/`} passHref>
+      <Box>
+        <Box
+          sx={{
+            width: 45,
+            height: 45,
+            backgroundColor: "black",
+            borderRadius: 99,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-          FC
-        </Typography>
+          <Typography
+            fontSize={"14px"}
+            fontWeight={"bold"}
+            component="div"
+            color="white"
+            sx={{ transform: `rotate(${angle}deg)` }}
+          >
+            FC
+          </Typography>
+        </Box>
       </Box>
-    </Box>
+    </Link>
   );
 };
 
