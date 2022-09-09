@@ -31,7 +31,8 @@ const MThumbnail = (props: any) => {
   };
   return (
     <Container
-      maxWidth="xl"
+      maxWidth={false}
+      // sx={{}}
       sx={{
         backgroundColor: "secondary.main",
       }}
@@ -40,28 +41,30 @@ const MThumbnail = (props: any) => {
     >
       <Container
         sx={{
-          maxHeight: { xs: "100vh", md: "100vh" },
+          maxHeight: { xs: "100vh", sm: "100vh", md: "100vh" },
           marginY: { xs: 10, md: 21 },
-          maxWidth: "100vw",
+          maxWidth: "100%",
           cursor: "default",
         }}
       >
         <Stack
-          direction={{ xs: "column-reverse", md: "row" }}
+          direction={{ xs: "column-reverse", sm: "column-reverse", md: "row" }}
           justifyContent={"center"}
+          alignItems={"center"}
+          width={"100%"}
           spacing={{ xs: 1, sm: 2, md: 0 }}
         >
           <Stack
             spacing={"21px"}
-            width={{ md: "50vw" }}
+            width={{ xs: "90vw", sm: "90vw", md: "50vw" }}
             justifyContent={"center"}
           >
             <Box
-              height={{ xs: 100, md: 240 }}
+              height={{ xs: 100, sm: 250, md: 240 }}
               fontSize={{ xs: 22, sm: 50 }}
               fontWeight={"bold"}
               flexWrap={"wrap"}
-              textAlign={{ xs: "center", sm: "start" }}
+              textAlign={{ xs: "center", sm: "center", md: "start" }}
             >
               <Typewriter
                 options={{
@@ -78,11 +81,14 @@ const MThumbnail = (props: any) => {
               fontSize={{ xs: 14, sm: 16 }}
               fontWeight={"regular"}
               flexWrap={"wrap"}
-              textAlign={{ xs: "center", sm: "start" }}
+              textAlign={{ xs: "center", sm: "center", md: "start" }}
             >
               Let’s Collaborate on your next project.
             </Typography>
-            <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+            <Stack
+              direction={{ xs: "column", sm: "column", md: "row" }}
+              spacing={2}
+            >
               <AButton href={"/#contact"} variant={"contained"}>
                 Hire Me
               </AButton>
@@ -95,8 +101,9 @@ const MThumbnail = (props: any) => {
             </Stack>
             <Stack
               direction={"row"}
-              justifyContent={{ xs: "center", sm: "start" }}
+              textAlign={{ xs: "center", sm: "center", md: "start" }}
               alignItems={"center"}
+              justifyContent={"center"}
               spacing={2}
             >
               <ItemIcon
@@ -122,9 +129,12 @@ const MThumbnail = (props: any) => {
           <Box
             component="img"
             sx={{
-              width: { xs: 350, sm: 600 },
+              maxWidth: { xs: "80vw", sm: "80vw", md: 600 },
+              // width: { xs: 350, sm: 700, md: 600 },
+
               // height: "auto",
-              backgroundSize: "cover",
+              objectFit: "cover",
+              // backgroundSize: "cover",
             }}
             alt="The house from the offer."
             src={`/Images/thumbnail-pic.png`}

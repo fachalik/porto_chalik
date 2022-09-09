@@ -23,6 +23,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AButton from "../Atoms/AButton";
+import { StackedBarChartOutlined } from "@mui/icons-material";
 
 const schema = yup
   .object({
@@ -77,7 +78,7 @@ const MFooter = () => {
 
   return (
     <Container
-      maxWidth="xl"
+      maxWidth={false}
       sx={{
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
@@ -87,24 +88,31 @@ const MFooter = () => {
       }}
       id={"contact"}
     >
-      <Container
+      <Stack
         sx={{
-          // maxHeight: { xs: "100vh", sm: "20vh" },
-          maxWidth: "100vw",
+          width: "100%",
           cursor: "default",
         }}
+        justifyContent={"center"}
+        alignItems={"center"}
       >
         <Stack
-          direction={{ xs: "column", md: "row" }}
-          justifyContent={"space-between"}
+          direction={{ xs: "column", sm: "column", md: "row" }}
+          justifyContent={"center"}
+          alignItems={{ xs: "center", sm: "center", md: "start" }}
+          width={{ xs: "90vw", sm: "90vw", md: "90vw" }}
         >
-          <Stack direction={"column"} spacing={3} width={{ md: "50vw" }}>
+          <Stack
+            direction={"column"}
+            spacing={3}
+            width={{ xs: "100%", sm: "100%", md: "50%" }}
+          >
             <Typography
               fontSize={{ xs: 18, sm: 26 }}
               marginBottom={{ xs: 2 }}
               fontWeight={"bold"}
               flexWrap={"wrap"}
-              textAlign={{ xs: "center", sm: "start" }}
+              textAlign={{ xs: "center", sm: "center", md: "start" }}
             >
               {`Hire me / work together ?`}
             </Typography>
@@ -113,13 +121,13 @@ const MFooter = () => {
               marginBottom={{ xs: 2 }}
               fontWeight={"regular"}
               flexWrap={"wrap"}
-              textAlign={{ xs: "center", sm: "start" }}
+              textAlign={{ xs: "center", sm: "center", md: "start" }}
             >
               Love to hear from you, Get in touch 🙌🏼
             </Typography>
             <Stack
               direction={"row"}
-              justifyContent={{ xs: "center", sm: "start" }}
+              justifyContent={{ xs: "center", sm: "center", md: "start" }}
               alignItems={"center"}
               spacing={2}
             >
@@ -143,105 +151,109 @@ const MFooter = () => {
               </ItemIcon>
             </Stack>
           </Stack>
-          {!isSend && !isError && (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Stack
-                direction={"column"}
-                marginTop={{ xs: 2 }}
-                spacing={3}
-                width={{ md: "50vw" }}
-              >
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      id="outlined-basic"
-                      label="Name"
-                      variant="outlined"
-                      {...field}
-                      error={errors.name?.message !== undefined}
+          <Box width={{ xs: "100%", sm: "100%", md: "50%" }}>
+            <>
+              {!isSend && !isError && (
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Stack
+                    direction={"column"}
+                    marginTop={{ xs: 2 }}
+                    spacing={3}
+                    width={"100%"}
+                  >
+                    <Controller
+                      name="name"
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          id="outlined-basic"
+                          label="Name"
+                          variant="outlined"
+                          {...field}
+                          error={errors.name?.message !== undefined}
+                        />
+                      )}
                     />
-                  )}
-                />
-                <p style={{ color: "red", margin: 0 }}>
-                  {errors.name?.message}
-                </p>
-                <Controller
-                  name="email"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      id="outlined-basic"
-                      label="Email"
-                      variant="outlined"
-                      {...field}
-                      error={errors.email?.message !== undefined}
+                    <p style={{ color: "red", margin: 0 }}>
+                      {errors.name?.message}
+                    </p>
+                    <Controller
+                      name="email"
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          id="outlined-basic"
+                          label="Email"
+                          variant="outlined"
+                          {...field}
+                          error={errors.email?.message !== undefined}
+                        />
+                      )}
                     />
-                  )}
-                />
-                <p style={{ color: "red", margin: 0 }}>
-                  {errors.email?.message}
-                </p>
-                <Controller
-                  name="message"
-                  control={control}
-                  render={({ field }) => (
-                    <TextField
-                      id="outlined-multiline-static"
-                      label="Tell me something"
-                      multiline
-                      rows={4}
-                      {...field}
-                      error={errors.message?.message !== undefined}
+                    <p style={{ color: "red", margin: 0 }}>
+                      {errors.email?.message}
+                    </p>
+                    <Controller
+                      name="message"
+                      control={control}
+                      render={({ field }) => (
+                        <TextField
+                          id="outlined-multiline-static"
+                          label="Tell me something"
+                          multiline
+                          rows={4}
+                          {...field}
+                          error={errors.message?.message !== undefined}
+                        />
+                      )}
                     />
-                  )}
-                />
-                <p style={{ color: "red", margin: 0 }}>
-                  {errors.message?.message}
-                </p>
-                <Box sx={{ display: "flex", justifyContent: "end" }}>
-                  <AButton type={"submit"} variant={"contained"}>
-                    Just send
-                  </AButton>
+                    <p style={{ color: "red", margin: 0 }}>
+                      {errors.message?.message}
+                    </p>
+                    <Box sx={{ display: "flex", justifyContent: "end" }}>
+                      <AButton type={"submit"} variant={"contained"}>
+                        Just send
+                      </AButton>
+                    </Box>
+                  </Stack>
+                </form>
+              )}
+              {isSend && (
+                <Box
+                  mt={{ xs: 3, md: 0 }}
+                  width={{ md: "100%" }}
+                  sx={{
+                    borderRadius: 1,
+                    backgroundColor: "white",
+                    paddingY: { xs: 5, md: 8 },
+                  }}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  Thank you 🫶
                 </Box>
-              </Stack>
-            </form>
-          )}
-          {isSend && (
-            <Box
-              mt={{ xs: 3, md: 0 }}
-              width={{ md: "50vw" }}
-              sx={{
-                borderRadius: 1,
-                backgroundColor: "white",
-                paddingY: { xs: 5, md: 8 },
-              }}
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
-            >
-              Thank you 🫶
-            </Box>
-          )}
-          {isError && (
-            <Box
-              mt={{ xs: 3, md: 0 }}
-              width={{ md: "50vw" }}
-              sx={{
-                borderRadius: 1,
-                backgroundColor: "white",
-                paddingY: { xs: 5, md: 8 },
-              }}
-              display={"flex"}
-              justifyContent={"center"}
-              alignItems={"center"}
-            >
-              Something error in services 🫣
-            </Box>
-          )}
+              )}
+              {isError && (
+                <Box
+                  mt={{ xs: 3, md: 0 }}
+                  width={{ md: "100%" }}
+                  sx={{
+                    borderRadius: 1,
+                    backgroundColor: "white",
+                    paddingY: { xs: 5, md: 8 },
+                  }}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
+                >
+                  Something error in services 🫣
+                </Box>
+              )}
+            </>
+          </Box>
         </Stack>
-      </Container>
+      </Stack>
     </Container>
   );
 };

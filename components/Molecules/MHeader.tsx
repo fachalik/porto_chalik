@@ -42,11 +42,11 @@ const MHeader = (props: any) => {
         <Toolbar
           sx={{
             display: "flex",
-            justifyContent: { xs: "center", sm: "space-between" },
+            justifyContent: { xs: "center", sm: "center", md: "space-between" },
           }}
         >
           <ALogo />
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
             {navItems.map((item, idx) => (
               <Link scroll={false} href={`${item.link}`} passHref key={idx}>
                 <Button

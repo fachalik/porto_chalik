@@ -54,7 +54,8 @@ const MAbout = () => {
         <Box
           component="img"
           sx={{
-            height: 80,
+            height: { xs: "80px", sm: "80px", md: "100px" },
+            width: { xs: "auto", md: "auto" },
           }}
           alt={item.cloudinary_id}
           src={item.image}
@@ -122,7 +123,7 @@ const MAbout = () => {
               My Journey
             </Typography>
             <Stack
-              direction={{ xs: "column", sm: "row" }}
+              direction={{ xs: "column", md: "row" }}
               spacing={{ xs: 3, md: 5 }}
               alignItems={"center"}
               justifyContent={"center"}

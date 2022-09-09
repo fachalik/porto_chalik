@@ -6,7 +6,7 @@ import AButton from "../Atoms/AButton";
 const MSeparateHire = () => {
   return (
     <Container
-      maxWidth="xl"
+      maxWidth={false}
       sx={{
         maxHeight: "100%",
         backgroundColor: "secondary.main",
@@ -21,7 +21,7 @@ const MSeparateHire = () => {
         }}
       >
         <Stack
-          direction={{ xs: "column", md: "row" }}
+          direction={{ xs: "column", sm: "column", md: "row" }}
           justifyContent={"space-between"}
         >
           <Typography
@@ -29,7 +29,7 @@ const MSeparateHire = () => {
             marginBottom={{ xs: 2 }}
             fontWeight={"bold"}
             flexWrap={"wrap"}
-            textAlign={{ xs: "center", sm: "start" }}
+            textAlign={{ xs: "center", sm: "center", md: "start" }}
           >
             {`Hire me / work together ?`}
           </Typography>

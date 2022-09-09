@@ -43,7 +43,14 @@ const MAllLatestWork = () => {
 
   const ItemWorkAt = ({ item }: any) => {
     return (
-      <Grid item xs={12} md={4} justifyContent={"center"} alignItems={"center"}>
+      <Grid
+        item
+        xs={12}
+        sm={7}
+        md={4}
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
         <Link href={item.link} underline="none" target={"_blank"}>
           <Tooltip title={item.link}>
             <Stack spacing={1} justifyContent={"center"}>

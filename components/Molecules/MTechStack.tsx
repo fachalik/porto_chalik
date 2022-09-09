@@ -43,7 +43,14 @@ const MTechStack = () => {
 
   const ItemWorkAt = ({ item }: any) => {
     return (
-      <Grid xs={6} md={2} item justifyContent={"center"} alignItems={"center"}>
+      <Grid
+        xs={6}
+        sm={4}
+        md={2}
+        item
+        justifyContent={"center"}
+        alignItems={"center"}
+      >
         <Link href={item.website} underline="none" target={"_blank"}>
           <Tooltip title={item.website}>
             <Stack justifyContent={"center"} alignItems={"center"}>

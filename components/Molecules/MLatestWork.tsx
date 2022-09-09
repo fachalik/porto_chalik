@@ -51,7 +51,7 @@ const MLatestWork = () => {
                 component="img"
                 sx={{
                   backgroundColor: "secondary.main",
-                  height: { xs: "200px", md: "230px" },
+                  height: { xs: "200px", sm: "350px", md: "230px" },
                   width: { xs: "auto", md: "auto" },
                   backgroundSize: "contain",
                   borderRadius: 2,

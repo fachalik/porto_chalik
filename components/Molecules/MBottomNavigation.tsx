@@ -28,7 +28,7 @@ function MBottomNavigation() {
       direction={"row"}
       sx={{
         zIndex: 100,
-        display: { xs: "block", sm: "none" },
+        display: { xs: "block", sm: "block", md: "none" },
         position: "fixed",
         bottom: "0px",
         width: "100%",
