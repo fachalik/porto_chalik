@@ -16,30 +16,41 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { timeout } from "../../utility/utilitys";
 
-const MAllLatestWork = () => {
-  const [data, setData] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
+import { useQuery } from "react-query";
+import { isArray } from "lodash";
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchingLatestWork = () => {
-      axios
+const MAllLatestWork = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const fetchingLatestWork = async () => {
+    try {
+      const data = await axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}latest-work`)
         .then(async (response) => {
-          await timeout(1000);
-          await setData(response.data.data);
-          await setIsLoading(false);
+          if (isArray(response.data.data)) return response.data.data;
         })
         .catch((err) => {
-          console.error(err);
-          setIsError(true);
-          setIsLoading(false);
+          throw new Error(err.message);
         });
-    };
 
-    fetchingLatestWork();
-  }, []);
+      if (!data) {
+        throw new Error("Internal Server Error");
+      }
+      return await data;
+    } catch (err: any) {
+      throw new Error(`${err.message} 🧑🏽‍🔧`);
+    }
+  };
+
+  const { data, isSuccess, isError, isLoading } = useQuery(
+    "latestWork",
+    fetchingLatestWork,
+    {
+      onError: (error: any) => {
+        setErrorMessage(`${error.message} 🧑🏽‍🔧`);
+      },
+    }
+  );
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -108,7 +119,7 @@ const MAllLatestWork = () => {
           Latest work
         </Typography>
 
-        {!isError && !isLoading && data.length ? (
+        {isSuccess && !isLoading && (
           <Grid
             container
             spacing={{ xs: 0, md: 2 }}
@@ -120,13 +131,6 @@ const MAllLatestWork = () => {
               <ItemWorkAt item={item} key={idx} />
             ))}
           </Grid>
-        ) : (
-          !isError &&
-          !isLoading && (
-            <Typography fontSize={24} textAlign="center">
-              No result found 🕵🏼‍♂️
-            </Typography>
-          )
         )}
         {isLoading && (
           <Stack
@@ -141,7 +145,7 @@ const MAllLatestWork = () => {
 
         {isError && (
           <Typography fontSize={24} textAlign="center">
-            Something was wrong 🧑🏽‍🔧
+            {errorMessage}
           </Typography>
         )}
       </Stack>

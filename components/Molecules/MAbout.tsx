@@ -9,34 +9,44 @@ import {
   Box,
   Paper,
   CircularProgress,
+  Grid,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
-import { timeout } from "../../utility/utilitys";
+import { useQuery } from "react-query";
+import { isArray } from "lodash";
 
 const MAbout = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  useEffect(() => {
-    const fetchingMyJourney = async () => {
-      await setIsLoading(true);
-      axios
+  const fetchingMyJourney = async () => {
+    try {
+      const data = await axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}journeys`)
         .then(async (response) => {
-          await timeout(1000);
-          await setData(response.data.data);
-          await setIsLoading(false);
+          if (isArray(response.data.data)) return response.data.data;
         })
         .catch((err) => {
-          setIsError(true);
-          setErrorMessage(err.message);
+          throw new Error(err.message);
         });
-    };
-    fetchingMyJourney();
-  }, []);
+
+      if (!data) {
+        throw new Error("Internal Server Error");
+      }
+      return await data;
+    } catch (err: any) {
+      throw new Error(`${err.message} 🧑🏽‍🔧`);
+    }
+  };
+
+  const { data, isSuccess, isError, isLoading } = useQuery(
+    "about",
+    fetchingMyJourney,
+    {
+      onError: (error: any) => {
+        setErrorMessage(`${error.message} 🧑🏽‍🔧`);
+      },
+    }
+  );
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -55,7 +65,8 @@ const MAbout = () => {
           component="img"
           sx={{
             height: { xs: "80px", sm: "80px", md: "100px" },
-            width: { xs: "auto", md: "auto" },
+            width: "200px",
+            objectFit: "contain",
           }}
           alt={item.cloudinary_id}
           src={item.image}
@@ -69,7 +80,6 @@ const MAbout = () => {
     );
   };
 
-  console.log(data);
   return (
     <Container
       sx={{
@@ -98,51 +108,60 @@ const MAbout = () => {
           handling frontend projects from small, to big projects. I have a
           diverse set of skills, ranging from design disciplines to HTML + CSS +
           Javascript. I prefer to keep learning, continue challenging myself and
-          do interesting things that matter. Now I Currently working at PUTI
-          Telkom University and Freelance at Upana Studio as a frontend
-          developer.
+          do interesting things that matter. Now I Currently working at
+          Infomedia Nusantara as frontend programmer.
         </Typography>
-        {isLoading && (
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            alignItems={"center"}
-            justifyContent={"center"}
+
+        <Stack spacing={5} direction={"column"} py={{ xs: 0, md: 10 }}>
+          <Typography
+            fontSize={32}
+            fontWeight={"bold"}
+            textAlign="center"
+            px={{ xs: 0 }}
           >
-            <CircularProgress />
-          </Stack>
-        )}
-        {!isLoading && (
-          <Stack spacing={5} direction={"column"} py={{ xs: 0, md: 10 }}>
-            <Typography
-              fontSize={32}
-              fontWeight={"bold"}
-              textAlign="center"
-              px={{ xs: 0 }}
-            >
-              My Journey
-            </Typography>
-            <Stack
+            My Journey
+          </Typography>
+          {!isLoading && (
+            <Grid
+              container
               direction={{ xs: "column", md: "row" }}
-              spacing={{ xs: 3, md: 5 }}
+              justifyContent="center"
+              alignItems="center"
+            >
+              {isSuccess &&
+                data.map((item: any, idx: number) => (
+                  <Grid
+                    item
+                    xs={4}
+                    key={idx}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      padding: "10px",
+                    }}
+                  >
+                    <ItemWorkAt item={item} />
+                  </Grid>
+                ))}
+            </Grid>
+          )}
+          {isLoading && (
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={2}
               alignItems={"center"}
               justifyContent={"center"}
             >
-              {data.map((item: any, idx: number) => (
-                <div
-                  key={idx}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <ItemWorkAt item={item} />
-                </div>
-              ))}
+              <CircularProgress />
             </Stack>
-          </Stack>
-        )}
+          )}
+          {isError && (
+            <Typography fontSize={24} textAlign="center">
+              {errorMessage}
+            </Typography>
+          )}
+        </Stack>
       </Stack>
     </Container>
   );

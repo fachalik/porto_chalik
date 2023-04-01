@@ -16,30 +16,40 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { timeout } from "../../utility/utilitys";
 
-const MTechStack = () => {
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+import { useQuery } from "react-query";
+import { isArray } from "lodash";
 
-  useEffect(() => {
-    setIsLoading(true);
-    const fetchingTechStack = () => {
-      axios
+const MTechStack = () => {
+  const [errorMessage, setErrorMessage] = useState("");
+  const fetchingTechStack = async () => {
+    try {
+      const data = await axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}tech-stack`)
         .then(async (response) => {
-          await timeout(1000);
-          await setData(response.data.data);
-          await setIsLoading(false);
+          if (isArray(response.data.data)) return response.data.data;
         })
         .catch((err) => {
-          console.error(err);
-          setIsError(true);
-          setIsLoading(false);
+          throw new Error(err.message);
         });
-    };
 
-    fetchingTechStack();
-  }, []);
+      if (!data) {
+        throw new Error("Internal Server Error");
+      }
+      return await data;
+    } catch (err: any) {
+      throw new Error(`${err.message} 🧑🏽‍🔧`);
+    }
+  };
+
+  const { data, isSuccess, isError, isLoading } = useQuery(
+    "techStack",
+    fetchingTechStack,
+    {
+      onError: (error: any) => {
+        setErrorMessage(`${error.message} 🧑🏽‍🔧`);
+      },
+    }
+  );
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -103,7 +113,7 @@ const MTechStack = () => {
         <Typography fontSize={32} textAlign="center">
           Heres my tech stack ‍💻
         </Typography>
-        {!isError && !isLoading && data.length ? (
+        {isSuccess && !isLoading && (
           <Grid
             container
             spacing={0}
@@ -116,13 +126,6 @@ const MTechStack = () => {
               <ItemWorkAt item={item} key={idx} />
             ))}
           </Grid>
-        ) : (
-          !isError &&
-          !isLoading && (
-            <Typography fontSize={24} textAlign="center">
-              No result found 🕵🏼‍♂️
-            </Typography>
-          )
         )}
         {isLoading && (
           <Stack
@@ -137,7 +140,7 @@ const MTechStack = () => {
 
         {isError && (
           <Typography fontSize={24} textAlign="center">
-            Something was wrong 🧑🏽‍🔧
+            {errorMessage}
           </Typography>
         )}
       </Stack>
