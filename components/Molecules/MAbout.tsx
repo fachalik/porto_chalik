@@ -1,7 +1,7 @@
 /** @format */
 
-import type { NextPage } from "next";
-import Image from "next/image";
+import type { NextPage } from 'next';
+import Image from 'next/image';
 import {
   Stack,
   Container,
@@ -10,43 +10,69 @@ import {
   Paper,
   CircularProgress,
   Grid,
-} from "@mui/material";
-import { useState } from "react";
-import axios from "axios";
-import { useQuery } from "react-query";
-import { isArray } from "lodash";
+} from '@mui/material';
+import { useState } from 'react';
+import axios from 'axios';
+import { useQuery } from 'react-query';
+import { isArray } from 'lodash';
 
 const MAbout = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const fetchingMyJourney = async () => {
-    try {
-      const data = await axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}journeys`)
-        .then(async (response) => {
-          if (isArray(response.data.data)) return response.data.data;
-        })
-        .catch((err) => {
-          throw new Error(err.message);
-        });
-
-      if (!data) {
-        throw new Error("Internal Server Error");
-      }
-      return await data;
-    } catch (err: any) {
-      throw new Error(`${err.message} 🧑🏽‍🔧`);
-    }
-  };
-
-  const { data, isSuccess, isError, isLoading } = useQuery(
-    "about",
-    fetchingMyJourney,
+  const [errorMessage, setErrorMessage] = useState('');
+  const data = [
     {
-      onError: (error: any) => {
-        setErrorMessage(`${error.message} 🧑🏽‍🔧`);
-      },
-    }
-  );
+      jobRole: 'Frontend Developer',
+      companyName: 'Infomedia Nusantara',
+      Date: 'Oct 2022 - Present',
+      image: './images/infomedianusantara_cover.jpeg',
+    },
+    {
+      jobRole: 'Frontend Developer',
+      companyName: 'PUTI Telkom University',
+      Date: 'Mar 2022 - Oct 2022',
+      image: './images/puti.png',
+    },
+    {
+      jobRole: 'Frontend Developer',
+      companyName: 'Upana Studio',
+      Date: 'Feb 2022 - Jan 2023',
+      image: './images/upanastudio.png',
+    },
+    {
+      jobRole: 'Frontend Developer Intern',
+      companyName: 'Amoeba X Kampus Merdeka',
+      Date: 'Sep 2021 - Feb 2022',
+      image: './images/amoeba.png',
+    },
+  ];
+  // const fetchingMyJourney = async () => {
+  //   try {
+  //     const data = await axios
+  //       .get(`${process.env.NEXT_PUBLIC_API_URL}journeys`)
+  //       .then(async (response) => {
+  //         if (isArray(response.data.data)) return response.data.data;
+  //       })
+  //       .catch((err) => {
+  //         throw new Error(err.message);
+  //       });
+
+  //     if (!data) {
+  //       throw new Error('Internal Server Error');
+  //     }
+  //     return await data;
+  //   } catch (err: any) {
+  //     throw new Error(`${err.message} 🧑🏽‍🔧`);
+  //   }
+  // };
+
+  // const { data, isSuccess, isError, isLoading } = useQuery(
+  //   'about',
+  //   fetchingMyJourney,
+  //   {
+  //     onError: (error: any) => {
+  //       setErrorMessage(`${error.message} 🧑🏽‍🔧`);
+  //     },
+  //   }
+  // );
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -55,26 +81,26 @@ const MAbout = () => {
         sx={{
           height: 200,
           width: 350,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-around',
+          alignItems: 'center',
         }}
       >
         <Box
           component="img"
           sx={{
-            height: { xs: "80px", sm: "80px", md: "100px" },
-            width: "200px",
-            objectFit: "contain",
+            height: { xs: '80px', sm: '80px', md: '100px' },
+            width: '200px',
+            objectFit: 'contain',
           }}
-          alt={item.cloudinary_id}
+          alt={item.companyName}
           src={item.image}
         />
         <div>
-          <h4 style={{ textAlign: "center", margin: 0 }}>{item.jobRole}</h4>
-          <h6 style={{ textAlign: "center", margin: 0 }}>{item.companyName}</h6>
-          <h6 style={{ textAlign: "center", margin: 0 }}>{item.Date}</h6>
+          <h4 style={{ textAlign: 'center', margin: 0 }}>{item.jobRole}</h4>
+          <h6 style={{ textAlign: 'center', margin: 0 }}>{item.companyName}</h6>
+          <h6 style={{ textAlign: 'center', margin: 0 }}>{item.Date}</h6>
         </div>
       </Paper>
     );
@@ -83,15 +109,15 @@ const MAbout = () => {
   return (
     <Container
       sx={{
-        maxHeight: "100%",
+        maxHeight: '100%',
         paddingY: { xs: 10, md: 15 },
       }}
-      id={"about"}
+      id={'about'}
     >
-      <Stack spacing={5} direction={"column"}>
+      <Stack spacing={5} direction={'column'}>
         <Typography
           fontSize={32}
-          fontWeight={"bold"}
+          fontWeight={'bold'}
           textAlign="center"
           px={{ xs: 0 }}
         >
@@ -99,7 +125,7 @@ const MAbout = () => {
         </Typography>
         <Typography
           fontSize={{ xs: 14, md: 18 }}
-          fontWeight={"regular"}
+          fontWeight={'regular'}
           textAlign="justify"
           flexWrap="wrap"
         >
@@ -112,41 +138,40 @@ const MAbout = () => {
           Infomedia Nusantara as frontend programmer.
         </Typography>
 
-        <Stack spacing={5} direction={"column"} py={{ xs: 0, md: 10 }}>
+        <Stack spacing={5} direction={'column'} py={{ xs: 0, md: 10 }}>
           <Typography
             fontSize={32}
-            fontWeight={"bold"}
+            fontWeight={'bold'}
             textAlign="center"
             px={{ xs: 0 }}
           >
             My Journey
           </Typography>
-          {!isLoading && (
-            <Grid
-              container
-              direction={{ xs: "column", md: "row" }}
-              justifyContent="center"
-              alignItems="center"
-            >
-              {isSuccess &&
-                data.map((item: any, idx: number) => (
-                  <Grid
-                    item
-                    xs={4}
-                    key={idx}
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      padding: "10px",
-                    }}
-                  >
-                    <ItemWorkAt item={item} />
-                  </Grid>
-                ))}
-            </Grid>
-          )}
-          {isLoading && (
+          {/* {!isLoading && ( */}
+          <Grid
+            container
+            direction={{ xs: 'column', md: 'row' }}
+            justifyContent="center"
+            alignItems="center"
+          >
+            {data.map((item: any, idx: number) => (
+              <Grid
+                item
+                xs={4}
+                key={idx}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: '10px',
+                }}
+              >
+                <ItemWorkAt item={item} />
+              </Grid>
+            ))}
+          </Grid>
+          {/* )} */}
+          {/* {isLoading && (
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
@@ -160,7 +185,7 @@ const MAbout = () => {
             <Typography fontSize={24} textAlign="center">
               {errorMessage}
             </Typography>
-          )}
+          )} */}
         </Stack>
       </Stack>
     </Container>

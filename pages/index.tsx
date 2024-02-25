@@ -1,22 +1,22 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
-import type { NextPage } from "next";
-import Head from "next/head";
-import useWindowDimensions from "../hooks/useWindowDimensions";
-import useGetAngle from "../hooks/useGetAngle";
+import React, { useState, useEffect } from 'react';
+import type { NextPage } from 'next';
+import Head from 'next/head';
+import useWindowDimensions from '../hooks/useWindowDimensions';
+import useGetAngle from '../hooks/useGetAngle';
 
 // ** MaterialUI Component
-import { Container, Box } from "@mui/material";
+import { Container, Box } from '@mui/material';
 
 // ** Component
-import MHeader from "../components/Molecules/MHeader";
-import MThumbnail from "../components/Molecules/MThumbnail";
-import MAbout from "../components/Molecules/MAbout";
-import MSeparateHire from "../components/Molecules/MSeparateHire";
-import MLatestWork from "../components/Molecules/MLatestWork";
-import MFooter from "../components/Molecules/MFooter";
-import MBottomNavigation from "../components/Molecules/MBottomNavigation";
+import MHeader from '../components/Molecules/MHeader';
+import MThumbnail from '../components/Molecules/MThumbnail';
+import MAbout from '../components/Molecules/MAbout';
+import MSeparateHire from '../components/Molecules/MSeparateHire';
+// import MLatestWork from "../components/Molecules/MLatestWork";
+import MFooter from '../components/Molecules/MFooter';
+import MBottomNavigation from '../components/Molecules/MBottomNavigation';
 
 const Home: NextPage = () => {
   return (
@@ -24,8 +24,8 @@ const Home: NextPage = () => {
       disableGutters={true}
       maxWidth={false}
       sx={{
-        width: "100%",
-        height: "100vh",
+        width: '100%',
+        height: '100vh',
       }}
     >
       <Head>
@@ -34,17 +34,17 @@ const Home: NextPage = () => {
       </Head>
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <MHeader />
         <MThumbnail />
         <MAbout />
-        <MSeparateHire />
-        <MLatestWork />
+        {/* <MSeparateHire /> */}
+        {/* <MLatestWork /> */}
         <MFooter />
       </Box>
     </Container>
