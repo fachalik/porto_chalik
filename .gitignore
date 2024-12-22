@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+# Lock files
+yarn.lock
+.yarn
+
 # next.js
 /.next/
 /out/

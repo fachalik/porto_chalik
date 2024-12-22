@@ -1,59 +1,59 @@
 /** @format */
 
-import type { NextPage } from 'next';
-import { Button, Container, Toolbar, Box, AppBar } from '@mui/material';
+import type { NextPage } from "next";
+import { Button, Container, Toolbar, Box, AppBar } from "@mui/material";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import ALogo from '../Atoms/ALogo';
+import ALogo from "../Atoms/ALogo";
 
 const MHeader = (props: any) => {
   // const navItems = ["Home", "About", "Works", "Tech Stack", "Contact"];
   const navItems = [
     {
-      title: 'Home',
-      link: '/#home',
+      title: "Home",
+      link: "/#home",
     },
     {
-      title: 'About',
-      link: '/#about',
+      title: "About",
+      link: "/#about",
     },
-    // {
-    //   title: "Works",
-    //   link: "/#works",
-    // },
-    // {
-    //   title: 'Tech stack',
-    //   link: '/techStack',
-    // },
     {
-      title: 'Contact',
-      link: '/#contact',
+      title: "Works",
+      link: "/#works",
+    },
+    {
+      title: "Tech stack",
+      link: "/techStack",
+    },
+    {
+      title: "Contact",
+      link: "/#contact",
     },
   ];
   return (
-    <Container sx={{ maxHeight: '50vh', maxWidth: '100vw' }}>
+    <Container sx={{ maxHeight: "50vh", maxWidth: "100vw" }}>
       <AppBar
         position="static"
         component="nav"
-        style={{ background: '#ffffff' }}
+        style={{ background: "#ffffff" }}
         elevation={0}
       >
         <Toolbar
           sx={{
-            display: 'flex',
-            justifyContent: { xs: 'center', sm: 'center', md: 'space-between' },
+            display: "flex",
+            justifyContent: { xs: "center", sm: "center", md: "space-between" },
           }}
         >
           <ALogo />
-          <Box sx={{ display: { xs: 'none', sm: 'none', md: 'block' } }}>
+          <Box sx={{ display: { xs: "none", sm: "none", md: "block" } }}>
             {navItems.map((item, idx) => (
               <Link scroll={false} href={`${item.link}`} passHref key={idx}>
                 <Button
                   sx={{
-                    color: 'black',
-                    textTransform: 'initial',
-                    fontWeight: 'bold',
+                    color: "black",
+                    textTransform: "initial",
+                    fontWeight: "bold",
                   }}
                 >
                   {item.title}

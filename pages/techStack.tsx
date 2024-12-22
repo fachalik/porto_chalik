@@ -1,10 +1,8 @@
 /** @format */
 
-import React, { useState, useEffect } from "react";
-import type { NextPage } from "next";
+import React from "react";
+import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
-import useWindowDimensions from "../hooks/useWindowDimensions";
-import useGetAngle from "../hooks/useGetAngle";
 
 // ** MaterialUI Component
 import { Container, Box } from "@mui/material";
@@ -14,7 +12,20 @@ import MHeader from "../components/Molecules/MHeader";
 import MFooter from "../components/Molecules/MFooter";
 import MTechStack from "../components/Molecules/MTechStack";
 
-const techStack: NextPage = () => {
+// ** Prisma
+import prisma from "../utility/db";
+
+// Define the type for tech stack
+type TechStack = {
+  id: number;
+  name: string;
+};
+
+type Props = {
+  techStack: TechStack[];
+};
+
+const TechStackPage: NextPage<Props> = ({ techStack }) => {
   return (
     <Container
       disableGutters={true}
@@ -37,11 +48,32 @@ const techStack: NextPage = () => {
         }}
       >
         <MHeader />
-        <MTechStack />
+        <MTechStack techStack={techStack} />
         <MFooter />
       </Box>
     </Container>
   );
 };
 
-export default techStack;
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const techStack = await prisma.techStack.findMany({
+      orderBy: { id: "asc" }, // Example: Order by ID
+    });
+
+    return {
+      props: {
+        techStack,
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching tech stack:", error);
+    return {
+      props: {
+        techStack: [],
+      },
+    };
+  }
+};
+
+export default TechStackPage;

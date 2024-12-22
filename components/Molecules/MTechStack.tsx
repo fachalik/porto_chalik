@@ -19,37 +19,11 @@ import { timeout } from "../../utility/utilitys";
 import { useQuery } from "react-query";
 import { isArray } from "lodash";
 
-const MTechStack = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const fetchingTechStack = async () => {
-    try {
-      const data = await axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}tech-stack`)
-        .then(async (response) => {
-          if (isArray(response.data.data)) return response.data.data;
-        })
-        .catch((err) => {
-          throw new Error(err.message);
-        });
+interface IProps {
+  techStack: any[];
+}
 
-      if (!data) {
-        throw new Error("Internal Server Error");
-      }
-      return await data;
-    } catch (err: any) {
-      throw new Error(`${err.message} 🧑🏽‍🔧`);
-    }
-  };
-
-  const { data, isSuccess, isError, isLoading } = useQuery(
-    "techStack",
-    fetchingTechStack,
-    {
-      onError: (error: any) => {
-        setErrorMessage(`${error.message} 🧑🏽‍🔧`);
-      },
-    }
-  );
+const MTechStack = (props: IProps) => {
 
   const ItemWorkAt = ({ item }: any) => {
     return (
@@ -113,36 +87,18 @@ const MTechStack = () => {
         <Typography fontSize={32} textAlign="center">
           Heres my tech stack ‍💻
         </Typography>
-        {isSuccess && !isLoading && (
-          <Grid
-            container
-            spacing={0}
-            rowSpacing={2.5}
-            alignItems="center"
-            justifyContent="center"
-            // style={{ minHeight: "100vh" }}
-          >
-            {data.map((item: any, idx: number) => (
-              <ItemWorkAt item={item} key={idx} />
-            ))}
-          </Grid>
-        )}
-        {isLoading && (
-          <Stack
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-            alignItems={"center"}
-            justifyContent={"center"}
-          >
-            <CircularProgress />
-          </Stack>
-        )}
 
-        {isError && (
-          <Typography fontSize={24} textAlign="center">
-            {errorMessage}
-          </Typography>
-        )}
+        <Grid
+          container
+          spacing={0}
+          rowSpacing={2.5}
+          alignItems="center"
+          justifyContent="center"
+        >
+          {props.techStack.map((item: any, idx: number) => (
+            <ItemWorkAt item={item} key={idx} />
+          ))}
+        </Grid>
       </Stack>
     </Container>
   );
